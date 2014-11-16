@@ -7,6 +7,14 @@ public class DecisionTree {
 	public DecisionTree() {
 		root = new Node();
 	}
+	
+	// main id3-function (without recursion)
+	 static  DecisionTree id3(ArrayList<TrainingDataItem> examples, String targetAttribute, ArrayList<String> attributes){
+
+		 DecisionTree tree = new DecisionTree();
+		 tree.root.id3(examples, targetAttribute, attributes);
+		 return tree;
+	 }
 
 	public String toString(){
 		String res = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?>";

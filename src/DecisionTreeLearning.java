@@ -4,15 +4,6 @@
 
 public class DecisionTreeLearning {
 
-	// main id3-function (without recursion)
-	 static  DecisionTree id3(ArrayList<TrainingDataItem> examples, String targetAttribute, ArrayList<String> attributes){
-
-		 DecisionTree tree = new DecisionTree();
-		 tree.root.id3(examples, targetAttribute, attributes);
-		 return tree;
-	 }
-
-
 	public static void main(String[] args) {
 	
 		ArrayList<TrainingDataItem> items = new  ArrayList<TrainingDataItem>();
@@ -59,7 +50,7 @@ public class DecisionTreeLearning {
 		attributes.add("lug_boot");
 		attributes.add("safety");
 
-		DecisionTree tree = id3(items, new String( "targetClass" ), attributes );
+		DecisionTree tree = DecisionTree.id3(items, new String( "targetClass" ), attributes );
 
 //		System.out.println( tree );
 
