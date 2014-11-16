@@ -11,12 +11,7 @@ public class DecisionTree {
 
 	public String toString(){
 		String res = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?>";
-
-		res += "<tree>";
-
-		res += root.toString();
-
-		res += "</tree>";
+		res += "<tree>" + root.toString() + "</tree>";
 		return res;
 	}
 
@@ -118,9 +113,6 @@ public class DecisionTree {
 					labels.add(key);
 				}
 
-				// split up the node
-				// copy the attributes so the reference stuff is working with recursion
-				ArrayList<Node> newNodes = this.fork(bestAttribute, labels);
 				for(Edge edge: this.edges){
 					ArrayList<String> copy = (ArrayList<String>) attributes.clone();
 					copy.remove(bestAttribute);

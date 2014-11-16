@@ -1,20 +1,11 @@
- import sun.awt.ConstrainableGraphics;
-
- import javax.management.Query;
- import java.awt.List;
  import java.io.*;
- import java.lang.reflect.Array;
  import java.util.ArrayList;
  import java.util.HashMap;
- import java.util.Iterator;
- import java.util.Map;
-
 
 public class DecisionTreeLearning {
 	public int targetClassCount = 4;
 
-	public static double LogBaseX(double x, double base)
-	{
+	public static double LogBaseX(double x, double base){
 		return Math.log(x) / Math.log(base);
 	}
 
@@ -43,11 +34,10 @@ public class DecisionTreeLearning {
 		return entropy;
 	}
 
-
 	 static double calcGain(ArrayList<TrainingDataItem> examples, String attribute ){
+		 
 		 double gain = 0;
 
-		 //TODO! calc gain
 		 HashMap< String, ArrayList<TrainingDataItem> > listOfExamplesSplitByAttributeValue = new HashMap< String, ArrayList<TrainingDataItem> >();
 
 		 splitExamples(examples, attribute, listOfExamplesSplitByAttributeValue);
@@ -78,8 +68,6 @@ public class DecisionTreeLearning {
         }
 	}
 
-
-
 	 // returns best valued attribute
 	 static String selectBestAttribute(ArrayList<TrainingDataItem> examples, ArrayList<String> attributes) {
 
@@ -101,7 +89,7 @@ public class DecisionTreeLearning {
 
 	// main id3-function (without recursion)
 	 static  DecisionTree id3(ArrayList<TrainingDataItem> examples, String targetAttribute, ArrayList<String> attributes){
-		 // TODO! set root value/attribute
+
 		 DecisionTree tree = new DecisionTree();
 
 		 tree.root.id3(examples, targetAttribute, attributes);
@@ -111,6 +99,7 @@ public class DecisionTreeLearning {
 
 
 	public static void main(String[] args) {
+	
 		ArrayList<TrainingDataItem> items = new  ArrayList<TrainingDataItem>();
 
 		File file = new File("car.data");
