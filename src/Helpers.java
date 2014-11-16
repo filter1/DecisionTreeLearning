@@ -23,12 +23,16 @@ public class Helpers {
 
 			targetClassOccurrenceCount.put(item.targetClass, counter);
 		}
-
-
+			
+		// if all examples is 'pure', belong to one class
+		if(targetClassOccurrenceCount.size() == 1 ) {
+			return 0.0;
+		}
+		
 		for( String key : targetClassOccurrenceCount.keySet() ) {
 			double occurrence = targetClassOccurrenceCount.get( key );
 			double p = occurrence / examples.size();
-			entropy -= p * LogBaseX(p,2);
+			entropy -= p * LogBaseX(p,4.0); // because there are 4 target classifikations
 		}
 
 		return entropy;
@@ -37,21 +41,18 @@ public class Helpers {
 	// calculating information gain
 	 static double calcGain(ArrayList<TrainingDataItem> examples, String attribute ){
 		 
-		 double gain = 0;
-
+		 double gain = calcEntropy( examples );
+		 
 		 HashMap< String, ArrayList<TrainingDataItem> > listOfExamplesSplitByAttributeValue = new HashMap< String, ArrayList<TrainingDataItem> >();
-
 		 splitExamples(examples, attribute, listOfExamplesSplitByAttributeValue);
 
-		 double gain2ndPart = 0;
-
 		 for( String key : listOfExamplesSplitByAttributeValue.keySet() ) {
-			 ArrayList<TrainingDataItem> list = listOfExamplesSplitByAttributeValue.get(key);
+			 
+			 ArrayList<TrainingDataItem> list = listOfExamplesSplitByAttributeValue.get(key);			 
 
-			 gain2ndPart += ( list.size() / examples.size() ) * calcEntropy( list );
+			 gain -= ( list.size() * calcEntropy( list )) / examples.size() ; // mind the order
+
 		 }
-
-		 gain = calcEntropy( examples ) - gain2ndPart;
 
 		 return gain;
 	 }
@@ -80,7 +81,7 @@ public class Helpers {
 		 for( String attribute : attributes) {
 			 // calc GAIN for every attribute
 			 double currentGain = calcGain(examples, attribute);
-
+			 
 			 if( currentGain > bestCurrentGain ) {
 				 bestCurrentAttribute = attribute;
 				 bestCurrentGain = currentGain;
