@@ -2,22 +2,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-public class DecisionTree {
-	public Node root;
-	
-	public DecisionTree() {
-		root = new Node();
-	}
-
-	public String toString(){
-		String res = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?>";
-		res += "<tree>" + root.toString() + "</tree>";
-		return res;
-	}
-
 	public class Node{
 
-		private class Edge{
+		class Edge{
 			String value;
 			Node child;
 		}
@@ -99,11 +86,11 @@ public class DecisionTree {
 			}
 			else{
 				// search best valued split
-				String bestAttribute = DecisionTreeLearning.selectBestAttribute( (ArrayList<TrainingDataItem>) examples.clone(), attributes );
+				String bestAttribute = Helpers.selectBestAttribute( (ArrayList<TrainingDataItem>) examples.clone(), attributes );
 
 				HashMap< String, ArrayList<TrainingDataItem> > listOfExamplesSplitByAttributeValue = new HashMap< String, ArrayList<TrainingDataItem> >();
 
-				DecisionTreeLearning.splitExamples(examples, bestAttribute, listOfExamplesSplitByAttributeValue);
+				Helpers.splitExamples(examples, bestAttribute, listOfExamplesSplitByAttributeValue);
 
 				ArrayList<String> labels = new ArrayList<String>();
 				for( String key : listOfExamplesSplitByAttributeValue.keySet() ){
@@ -122,4 +109,3 @@ public class DecisionTree {
 //			this.debugOutput();
 		}
 	}
-}
