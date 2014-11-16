@@ -23,7 +23,7 @@ public class DecisionTree {
 		}
 
 		public String toString(){
-			if( isLeaf ) {
+			if( isLeaf ){
 				return new String( "<leaf>" + this.label + "</leaf>" );
 			}
 
@@ -35,7 +35,6 @@ public class DecisionTree {
 				res += "</branch>";
 			}
 			res += "</node>";
-
 			return res;
 		}
 
@@ -56,7 +55,7 @@ public class DecisionTree {
 
 			ArrayList<Node> returnNodes = new ArrayList<Node>();
 
-			for( String value : values ) {
+			for( String value : values ){
 				Edge edge = new Edge();
 				Node node = new Node();
 
@@ -67,7 +66,6 @@ public class DecisionTree {
 
 				edges.add( edge );
 			}
-
 			return returnNodes;
 		}
 
@@ -79,13 +77,12 @@ public class DecisionTree {
 		// main recursion id3-function
 		public void id3(ArrayList<TrainingDataItem> examples, String targetAttribute,  ArrayList<String> attributes){
 
-
 			// 1. Check if we can end recursion
 			boolean isLeaf = true;
 			String rememberTarget = "";
-			for (TrainingDataItem item : examples) {
+			for( TrainingDataItem item : examples ){
 
-				if(rememberTarget.isEmpty()){ // < first cycle
+				if( rememberTarget.isEmpty() ){ // < first cycle
 					rememberTarget = item.targetClass;
 				} else {
 					if( ! item.targetClass.equals( rememberTarget) ){
@@ -97,7 +94,7 @@ public class DecisionTree {
 
 			//System.out.println( "isLeaf = " + isLeaf );
 
-			if(isLeaf){
+			if( isLeaf ){
 				this.setLeaf(true, rememberTarget);
 			}
 			else{
@@ -109,11 +106,12 @@ public class DecisionTree {
 				DecisionTreeLearning.splitExamples(examples, bestAttribute, listOfExamplesSplitByAttributeValue);
 
 				ArrayList<String> labels = new ArrayList<String>();
-				for( String key : listOfExamplesSplitByAttributeValue.keySet() ) {
+				for( String key : listOfExamplesSplitByAttributeValue.keySet() ){
 					labels.add(key);
 				}
-
-				for(Edge edge: this.edges){
+				
+				ArrayList<Node> newNodes = this.fork(bestAttribute, labels);
+				for( Edge edge: this.edges ){
 					ArrayList<String> copy = (ArrayList<String>) attributes.clone();
 					copy.remove(bestAttribute);
 
@@ -121,7 +119,7 @@ public class DecisionTree {
 				}
 
 			}
-			//this.debugOutput();
+//			this.debugOutput();
 		}
 	}
 }

@@ -56,10 +56,10 @@ public class DecisionTreeLearning {
 	 }
 
 	public static void splitExamples(ArrayList<TrainingDataItem> examples, String attribute, HashMap<String, ArrayList<TrainingDataItem>> listOfExamplesSplitByAttributeValue) {
-		for( TrainingDataItem item : examples ) {
+		for( TrainingDataItem item : examples ){
             ArrayList<TrainingDataItem> list = listOfExamplesSplitByAttributeValue.get( item.getAttributeValue( attribute ) );
 
-            if( list == null ) {
+            if( list == null ){
                 list = new ArrayList<TrainingDataItem>();
                 listOfExamplesSplitByAttributeValue.put( item.getAttributeValue( attribute ), list );
             }
@@ -91,9 +91,7 @@ public class DecisionTreeLearning {
 	 static  DecisionTree id3(ArrayList<TrainingDataItem> examples, String targetAttribute, ArrayList<String> attributes){
 
 		 DecisionTree tree = new DecisionTree();
-
 		 tree.root.id3(examples, targetAttribute, attributes);
-
 		 return tree;
 	 }
 
@@ -111,7 +109,7 @@ public class DecisionTreeLearning {
 
 	        do{
 	        	s = reader.readLine();
-				//System.out.println("readline = " + s);
+				System.out.println("readline = " + s);
 				if( s != null) {
 					TrainingDataItem i = new TrainingDataItem(s);
 					items.add(i);
@@ -133,6 +131,8 @@ public class DecisionTreeLearning {
 	            e.printStackTrace();
 	        }
 	    }
+	    
+	    System.out.println(items.size());
 
 		ArrayList<String> attributes = new ArrayList<String>();
 		attributes.add("buying");
@@ -158,6 +158,8 @@ public class DecisionTreeLearning {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
+		System.out.println(items.size());
 
 	}
 }
