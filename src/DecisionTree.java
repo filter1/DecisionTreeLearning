@@ -30,7 +30,7 @@ public class DecisionTree {
 		return true;
 	}
 	
-	private  static int testRecursive(Node n, TrainingDataItem i){
+	private static int testRecursive(Node n, TrainingDataItem i){
 		if( n.isLeaf ) {
 			return i.targetClass.equals(n.label) ? 1 : 0;
 		}

@@ -31,5 +31,4 @@ public class TrainingDataItem {
 		}
 		return null;
 	}
-
 }
