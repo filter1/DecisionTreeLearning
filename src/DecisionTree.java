@@ -1,6 +1,5 @@
 import java.util.ArrayList;
 
-
 public class DecisionTree {
 	public Node root;
 	
@@ -22,6 +21,7 @@ public class DecisionTree {
 		return res;
 	}
 	
+	// testing if the decision tree classifies all examples correctly.
 	public boolean testWithExamples(ArrayList<TrainingDataItem> examples){
 		for(TrainingDataItem item: examples){
 			if( testRecursive(root, item) < 1)
@@ -30,7 +30,7 @@ public class DecisionTree {
 		return true;
 	}
 	
-	public static int testRecursive(Node n, TrainingDataItem i){
+	private  static int testRecursive(Node n, TrainingDataItem i){
 		if( n.isLeaf ) {
 			return i.targetClass.equals(n.label) ? 1 : 0;
 		}

@@ -30,9 +30,10 @@ import java.util.List;
 		String label;
 		boolean isLeaf;
 
-		public void setLeaf(boolean isLeaf, String targetClass) {
+		// this node is now a leaf with the 'target' as label.
+		public void setLeaf(boolean isLeaf, String target) {
 			this.isLeaf = isLeaf;
-			this.label = targetClass;
+			this.label = target;
 		}
 
 		// create new sub-nodes with attribute 'label'
@@ -72,6 +73,7 @@ import java.util.List;
 				if( rememberTarget.isEmpty() ){ // < first cycle
 					rememberTarget = item.targetClass;
 				} else {
+					// if the examples are not 'pure', we have to break and con't.
 					if( ! item.targetClass.equals( rememberTarget) ){
 						isLeaf = false;
 						break;
@@ -89,19 +91,22 @@ import java.util.List;
 				String bestAttribute = Helpers.selectBestAttribute( (ArrayList<TrainingDataItem>) examples.clone(), attributes );
 
 				HashMap< String, ArrayList<TrainingDataItem> > listOfExamplesSplitByAttributeValue = new HashMap< String, ArrayList<TrainingDataItem> >();
-
+				
+				// splitting all examples 
 				Helpers.splitExamples(examples, bestAttribute, listOfExamplesSplitByAttributeValue);
-
+				
+				// forking the current node and adding labels to the edges that connect the new nodes
 				ArrayList<String> labels = new ArrayList<String>();
 				for( String key : listOfExamplesSplitByAttributeValue.keySet() ){
 					labels.add(key);
 				}
+				this.fork(bestAttribute, labels);
 				
-				ArrayList<Node> newNodes = this.fork(bestAttribute, labels);
+				// recursivly run id3. But we have to remove the attribute that was chose for THIS node from attributes.
+				// clone because we don't want recursion and referencing to fuck up.
+				ArrayList<String> copy = (ArrayList<String>) attributes.clone(); 
+				copy.remove(bestAttribute);
 				for( Edge edge: this.edges ){
-					ArrayList<String> copy = (ArrayList<String>) attributes.clone();
-					copy.remove(bestAttribute);
-
 					edge.child.id3(listOfExamplesSplitByAttributeValue.get(edge.value), targetAttribute, copy );
 				}
 

@@ -8,6 +8,7 @@ public class Helpers {
 		return Math.log(x) / Math.log(base);
 	}
 
+	// calculating entropy
 	static double calcEntropy( ArrayList<TrainingDataItem> examples ){
 		double entropy = 0;
 
@@ -33,6 +34,7 @@ public class Helpers {
 		return entropy;
 	}
 
+	// calculating information gain
 	 static double calcGain(ArrayList<TrainingDataItem> examples, String attribute ){
 		 
 		 double gain = 0;
@@ -53,7 +55,9 @@ public class Helpers {
 
 		 return gain;
 	 }
-
+	 
+	// splitting the examples by one attribute
+	// the result is returned via reference of the HashMap.
 	public static void splitExamples(ArrayList<TrainingDataItem> examples, String attribute, HashMap<String, ArrayList<TrainingDataItem>> listOfExamplesSplitByAttributeValue) {
 		for( TrainingDataItem item : examples ){
             ArrayList<TrainingDataItem> list = listOfExamplesSplitByAttributeValue.get( item.getAttributeValue( attribute ) );
